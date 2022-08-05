@@ -1,5 +1,6 @@
 package com.example.carrentalsystem.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.example.carrentalsystem.model.enums.ReservationStatus;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -19,21 +21,35 @@ import javax.persistence.*;
 @Entity
 @Table(name = "reservation")
 public class Reservation {
+
+    public Reservation(LocalDate initialDate, LocalDate returnDate, Car car, Customer customer, int rate, ReservationStatus status) {
+        this.initialDate = initialDate;
+        this.returnDate = returnDate;
+        this.car = car;
+        this.customer = customer;
+        this.rate = rate;
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "hireDate", columnDefinition = "TIMESTAMP")
-    private LocalDateTime initialDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name = "hiredate", columnDefinition = "DATE")
+    private LocalDate initialDate;
 
-    @Column(name = "returnDate", columnDefinition = "TIMESTAMP")
-    private LocalDateTime returnDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name = "returndate", columnDefinition = "DATE")
+    private LocalDate returnDate;
 
-    @Column(name = "carId")
-    private Long carId;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "carid")
+    private Car car;
 
-    @Column(name = "customerId")
-    private Long customerId;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customerid")
+    private Customer customer;
 
     @Column(name = "rate")
     private int rate;

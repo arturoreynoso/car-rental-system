@@ -19,6 +19,18 @@ import lombok.ToString;
 @Entity
 @Table(name = "car")
 public class Car {
+
+    public Car(String name, CarType carType, int modelYear, Brand brand, Color color, int seatingCapacity, String plateNumber, int rate) {
+        this.name = name;
+        this.carType = carType;
+        this.modelYear = modelYear;
+        this.brand = brand;
+        this.color = color;
+        this.seatingCapacity = seatingCapacity;
+        this.plateNumber = plateNumber;
+        this.rate = rate;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,24 +39,24 @@ public class Car {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "typeCar")
+    @Column(name = "typecar")
     private CarType carType;
 
-    @Column(name = "modelYear")
+    @Column(name = "modelyear")
     private int modelYear;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "brandCar")
+    @Column(name = "brandcar")
     private Brand brand;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "colorCar")
+    @Column(name = "colorcar")
     private Color color;
 
-    @Column(name = "seatingCapacity")
+    @Column(name = "seatingcapacity")
     private int seatingCapacity;
 
-    @Column(name = "plateNumber")
+    @Column(name = "platenumber")
     private String plateNumber;
 
     @Column(name = "rate")

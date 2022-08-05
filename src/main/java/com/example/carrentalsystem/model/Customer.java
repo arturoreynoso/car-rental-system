@@ -15,6 +15,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer")
 public class Customer {
+
+    public Customer(String name, String lastName, String phoneNumber, String username) {
+        this.name = name;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +30,10 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phonenumber")
     private String phoneNumber;
 
     @Column(name = "username")
