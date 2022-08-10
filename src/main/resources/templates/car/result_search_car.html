@@ -22,13 +22,23 @@
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
-                    <!--<th scope="col"></th>
-                    <th scope="col">Apellido Materno</th>-->
+                    <th scope="col">Rate per day $</th>
+                    <th scope="col"> Brand</th>
+                    <th scope="col"> Year of fabrication</th>
+                    <th scope="col"> Type of Car</th>
+                    <th scope="col"> Color</th>
+                    <th scope="col"> Seating Capacity</th>
                 </tr>
                 </thead>
                 <tbody th:each="car : ${cars}">
                 <td th:text="${car.name}"></td>
-                <td>th:text="${car.brand}"</td>
+                <td th:text="${car.rate}"></td>
+                <td th:text="${car.brand}"></td>
+                <td th:text="${car.modelYear}"></td>
+                <td th:text="${car.carType}"></td>
+                <td th:text="${car.color}"></td>
+                <td th:text="${car.seatingCapacity}"></td>
+
                 <!--<td th:text="${juez.apellidoP}"></td>
                 <td th:text="${juez.apellidoM}"></td>
                 <td><a class="btn btn-dark" th:href="@{/menujuez/eliminar/__${juez.id}__}">Eliminar</a></td>

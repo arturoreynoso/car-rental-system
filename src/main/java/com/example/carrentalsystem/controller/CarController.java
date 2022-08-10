@@ -1,13 +1,17 @@
 package com.example.carrentalsystem.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.example.carrentalsystem.model.Car;
 import com.example.carrentalsystem.model.Customer;
+import com.example.carrentalsystem.model.QueryDto;
 import com.example.carrentalsystem.model.Reservation;
+import com.example.carrentalsystem.model.enums.Brand;
+import com.example.carrentalsystem.model.enums.CarType;
 import com.example.carrentalsystem.repository.CarRepository;
 import com.example.carrentalsystem.service.CarService;
 import org.springframework.stereotype.Controller;
@@ -32,19 +36,23 @@ public class CarController {
     }
 
     @RequestMapping()
-    public String booking() {
+    public String booking(Model model) {
+        model.addAttribute("allBrands", Brand.values());
+        model.addAttribute("allCarTypes", CarType.values());
+        model.addAttribute("queryDto", new QueryDto());
         return "car/booking";
     }
 
     @GetMapping("/search_result")
-    public String getCar(HttpServletRequest request, Model model) {
+    public String getCar(@ModelAttribute("queryDto") QueryDto queryDto, Model model) {
         List<Car> cars;
-        String fromD, toD;
-        fromD = request.getParameter("from");
-        toD = request.getParameter("to");
-        LocalDate fromDate = LocalDate.parse(fromD);
-        LocalDate toDate = LocalDate.parse(toD);
-        cars = carService.getAvailableCarsBetweenDates(fromDate, toDate.plusDays(1));
+        LocalDate fromDate = queryDto.getFrom();
+        LocalDate toDate = queryDto.getTo();
+        List<Brand> brands = queryDto.getBrands();
+        List<CarType> carTypes = queryDto.getCarTypes();
+        System.out.println(brands.toString());
+        cars = carService.getCarsBetweenDatesAndBrandAndCarType(fromDate, toDate.plusDays(1), brands);
+        //cars = carService.getCarsBetweenDatesAndBrandAndCarType(fromDate, toDate.plusDays(1), brands, carTypes);
         model.addAttribute("cars", cars);
         return "car/result_search_car";
     }

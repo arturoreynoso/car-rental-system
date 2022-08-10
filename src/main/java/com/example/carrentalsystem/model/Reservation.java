@@ -22,8 +22,8 @@ import javax.persistence.*;
 @Table(name = "reservation")
 public class Reservation {
 
-    public Reservation(LocalDate initialDate, LocalDate returnDate, Car car, Customer customer, int rate, ReservationStatus status) {
-        this.initialDate = initialDate;
+    public Reservation(LocalDate hireDate, LocalDate returnDate, Car car, Customer customer, int rate, ReservationStatus status) {
+        this.hireDate = hireDate;
         this.returnDate = returnDate;
         this.car = car;
         this.customer = customer;
@@ -37,7 +37,7 @@ public class Reservation {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "hiredate", columnDefinition = "DATE")
-    private LocalDate initialDate;
+    private LocalDate hireDate;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "returndate", columnDefinition = "DATE")
