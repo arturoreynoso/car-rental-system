@@ -21,13 +21,27 @@
             <table class="table table-striped table-hover table-light ">
                 <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Rate per day $</th>
-                    <th scope="col"> Brand</th>
-                    <th scope="col"> Year of fabrication</th>
-                    <th scope="col"> Type of Car</th>
-                    <th scope="col"> Color</th>
-                    <th scope="col"> Seating Capacity</th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                            Name</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=rate&sortDir=' + ${reverseSortDir}}">
+                            Rate per day $</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=brand&sortDir=' + ${reverseSortDir}}">
+                            Brand</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=modelYear&sortDir=' + ${reverseSortDir}}">
+                            Year of fabrication</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=carType&sortDir=' + ${reverseSortDir}}">
+                            Type of Car</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=color&sortDir=' + ${reverseSortDir}}">
+                            Color</a></th>
+                    <th scope="col">
+                        <a th:href="@{'/car/search/result_search_car/page/' + ${currentPage} + '?sortField=seatingCapacity&sortDir=' + ${reverseSortDir}}">
+                            Seating Capacity</a></th>
                 </tr>
                 </thead>
                 <tbody th:each="car : ${cars}">
@@ -38,16 +52,38 @@
                 <td th:text="${car.carType}"></td>
                 <td th:text="${car.color}"></td>
                 <td th:text="${car.seatingCapacity}"></td>
+                <td><a class="btn btn-primary" th:href="@{/car/search/booking/__${car.id}__}">Book Car</a></td>
 
                 <!--<td th:text="${juez.apellidoP}"></td>
                 <td th:text="${juez.apellidoM}"></td>
                 <td><a class="btn btn-dark" th:href="@{/menujuez/eliminar/__${juez.id}__}">Eliminar</a></td>
                 <td><a class="btn btn-primary" th:href="@{/menujuez/actualizar/(juezId=${juez.id})}">Actualizar</a></td>-->
                 </tbody>
-
             </table>
             <div class="card-footer">
-                <a class="return" th:href="@{/booking}">Return</a>
+                <a class="return" th:href="@{/search}">Return</a>
+            </div>
+            <div th:if = "${totalPages > 1}">
+                <div class = "row col-sm-10">
+                    <div class = "col-sm-2">
+                        Total Rows: [[${totalItems}]]
+                    </div>
+                    <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/car/search/result_search_car/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+                    </div>
+                    <div class = "col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/car/search/result_search_car/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                        <span th:unless="${currentPage < totalPages}">Next</span>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/car/search/result_search_car/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                        <span th:unless="${currentPage < totalPages}">Last</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

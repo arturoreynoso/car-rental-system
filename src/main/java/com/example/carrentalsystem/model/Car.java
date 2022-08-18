@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "car")
+@Table(name = "car", schema = "public")
 public class Car {
 
     public Car(String name, CarType carType, int modelYear, Brand brand, Color color, int seatingCapacity, String plateNumber, int rate) {

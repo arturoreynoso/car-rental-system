@@ -19,15 +19,14 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservation", schema = "public")
 public class Reservation {
 
-    public Reservation(LocalDate hireDate, LocalDate returnDate, Car car, Customer customer, int rate, ReservationStatus status) {
+    public Reservation(LocalDate hireDate, LocalDate returnDate, Car car, Customer customer, ReservationStatus status) {
         this.hireDate = hireDate;
         this.returnDate = returnDate;
         this.car = car;
         this.customer = customer;
-        this.rate = rate;
         this.status = status;
     }
 
@@ -43,16 +42,13 @@ public class Reservation {
     @Column(name = "returndate", columnDefinition = "DATE")
     private LocalDate returnDate;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "carid")
     private Car car;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerid")
     private Customer customer;
-
-    @Column(name = "rate")
-    private int rate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
